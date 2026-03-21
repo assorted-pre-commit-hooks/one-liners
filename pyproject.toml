@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=64.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "one-liners"
+version = "0.0"
+description = "Various one-liner pre-commit hooks"
+authors = [
+    { name = "Karl Wette", email = "karl.wette@anu.edu.au" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "regex",
+]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSES/MIT.txt"]
+
+[project.scripts]
+one-liners = "one_liners:main"
+
+[tool.ruff]
+fix = true
+show-fixes = true
+
+[tool.ruff.lint]
+select = [
+    "D1", "D2", "D4",
+    "E4", "E7", "E9",
+    "EM",
+    "F",
+    "I",
+]
+ignore = [
+    "D102", "D105", "D107", "D202",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+pythonpath = ["src"]
+testpaths = ["test"]
+
+[tool.ppqs.defaults]
+print-header = true
+
+[tool.ppqs.scripts.init]
+description = "Initialise project"
+script = """
+python -m pip install pre-commit>=3.7
+pre-commit install
+"""
+
+[tool.ppqs.scripts.lint]
+description = "Perform linting checks"
+script = """
+pre-commit run -a
+python -m pytest
+"""
+
+[tool.ppqs.scripts.upload]
+description = "Upload package"
+script = """
+ppqs lint
+git push origin
+git push origin --tags
+"""
+
+[tool.ppqs.scripts.clean]
+description = "Clean up build files"
+script = "git clean -Xdf"
