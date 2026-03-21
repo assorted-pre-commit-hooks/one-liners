@@ -69,6 +69,8 @@ class chmod(one_liner):
         new_mode = reduce(lambda m, modef: modef(m), [old_mode] + args.perms)
         if old_mode != new_mode:
             filepath.chmod(new_mode)
+            return 1
+        return 0
 
 
 class regex(one_liner):
@@ -83,6 +85,8 @@ class regex(one_liner):
         new_text = re.sub(args.patt, args.repl, old_text, flags=re.MULTILINE)
         if old_text != new_text:
             filepath.write_text(new_text)
+            return 1
+        return 0
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -99,10 +103,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
 
+    exit_code = 0
     for filename in args.filenames:
-        args.f(args, Path(filename))
+        exit_code &= args.f(args, Path(filename))
 
-    return 0
+    return exit_code
 
 
 if __name__ == "__main__":
