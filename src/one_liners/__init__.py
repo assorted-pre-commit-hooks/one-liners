@@ -79,9 +79,10 @@ class regex(one_liner):
         parser.add_argument("--repl", type=str, required=True)
 
     def __call__(self, args, filepath):
-        filepath.write_text(
-            re.sub(args.patt, args.repl, filepath.read_text(), flags=re.MULTILINE)
-        )
+        old_text = filepath.read_text()
+        new_text = re.sub(args.patt, args.repl, old_text, flags=re.MULTILINE)
+        if old_text != new_text:
+            filepath.write_text(new_text)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
