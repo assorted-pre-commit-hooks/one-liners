@@ -105,7 +105,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     exit_code = 0
     for filename in args.filenames:
-        exit_code &= args.f(args, Path(filename))
+        exit_code |= args.f(args, Path(filename))
 
     return exit_code
 
