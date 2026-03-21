@@ -1,13 +1,13 @@
 - id: chmod
   name: change file permissions
-  entry: one_liners chmod
+  entry: one-liners chmod
   types: [file]
   files: ^$
   language: python
 
 - id: regex
   name: regular expression search and replace
-  entry: one_liners regex
+  entry: one-liners regex
   types: [file]
   files: ^$
   language: python
