@@ -1,0 +1,6 @@
+- id: regex
+  name: regular expression search and replace
+  entry: one_liners regex
+  types: [file]
+  files: ^$
+  language: python
