@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "one-liners"
-version = "0.2"
+version = "0.3"
 description = "Various one-liner pre-commit hooks"
 authors = [
     { name = "Karl Wette", email = "karl.wette@anu.edu.au" },
