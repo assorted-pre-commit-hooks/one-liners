@@ -65,9 +65,10 @@ class chmod(one_liner):
             )
 
     def __call__(self, args, filepath):
-        filepath.chmod(
-            reduce(lambda m, modef: modef(m), [filepath.stat().st_mode] + args.perms)
-        )
+        old_mode = filepath.stat().st_mode
+        new_mode = reduce(lambda m, modef: modef(m), [old_mode] + args.perms)
+        if old_mode != new_mode:
+            filepath.chmod(new_mode)
 
 
 class regex(one_liner):
