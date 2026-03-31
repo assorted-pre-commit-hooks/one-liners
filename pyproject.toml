@@ -50,7 +50,7 @@ print-header = true
 [tool.ppqs.scripts.init]
 description = "Initialise project"
 script = """
-python -m pip install pre-commit>=3.7 regex
+python -m pip install pre-commit>=3.7
 pre-commit install
 """
 
@@ -58,6 +58,7 @@ pre-commit install
 description = "Perform linting checks"
 script = """
 pre-commit run -a
+python -m pip install regex
 python -m pytest
 """
 
